@@ -90,7 +90,7 @@ async function sendMessage(){
     method:'POST',
     headers:{
       'Content-Type':'application/json',
-      'Authorization':'Bearer YOUR_OPENAI_API_KEY'
+      'Authorization':'Bearer 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'
     },
     body:JSON.stringify({
       model:'gpt-4o-mini',
