@@ -44,7 +44,7 @@ body {
 
 /* HEADER */
 header {
-  min-height: 70vh;
+  min-height: 40vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -259,7 +259,7 @@ section { padding: 40px 8%; }
 
 /* Mobile */
 @media (max-width: 768px) {
-  header { min-height: 60vh; }
+  header { min-height: 40vh; }
   header h1 { font-size: 2rem; }
   header p { font-size: 1rem; }
 
@@ -289,4 +289,5 @@ section { padding: 40px 8%; }
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(#ff2b2b, #980101);
   border-radius: 10px;
+
 }
