@@ -41,24 +41,40 @@ function addMessage(text, type){
 
 async function sendMessage(){
   const text = input.value.trim();
-  if(!text) return;
+  if (!text) return;
 
-  addMessage(text,"user");
-  input.value="";
-  addMessage("⏳ AI sedang mengetik...","bot");
+  addMessage(text, "user");
+  input.value = "";
 
-  try{
-    const r = await fetch("https://ai.haudil-ulum.workers.dev",{
-      method:"POST",
-      headers:{ "Content-Type":"application/json" },
-      body:JSON.stringify({ message:text })
+  let botMsg = document.createElement("div");
+  botMsg.className = "ai-msg bot";
+  botMsg.innerText = "🤖 AI sedang bangun...";
+  messages.appendChild(botMsg);
+  messages.scrollTop = messages.scrollHeight;
+
+  async function askAI(){
+    const r = await fetch("https://ai.haudil-ulum.workers.dev", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: text })
     });
-    const d = await r.json();
-    messages.lastChild.remove();
-    addMessage(d.reply,"bot");
-  }catch{
-    messages.lastChild.remove();
-    addMessage("⚠️ AI tidak bisa dihubungi","bot");
+    return r.json();
+  }
+
+  try {
+    let d = await askAI();
+
+    // kalau AI belum siap → tunggu → coba lagi
+    if (d.reply?.includes("bangun") || d.reply?.includes("tidur")) {
+      botMsg.innerText = "⏳ AI masih bangun, sebentar ya...";
+      await new Promise(r => setTimeout(r, 4000));
+      d = await askAI();
+    }
+
+    botMsg.innerText = d.reply || "⚠️ AI belum bisa menjawab";
+
+  } catch {
+    botMsg.innerText = "⚠️ Gagal menghubungi AI";
   }
 }
 
