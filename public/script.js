@@ -3,21 +3,24 @@ const themeToggle = document.getElementById("themeToggle");
 const root = document.documentElement;
 const saved = localStorage.getItem("theme") || "dark";
 root.setAttribute("data-theme", saved);
-themeToggle.innerHTML = saved === "dark"
-  ? '<i class="fas fa-sun"></i>'
-  : '<i class="fas fa-moon"></i>';
+
+themeToggle.innerHTML =
+  saved === "dark"
+    ? '<i class="fas fa-sun"></i>'
+    : '<i class="fas fa-moon"></i>';
 
 themeToggle.onclick = () => {
   const cur = root.getAttribute("data-theme");
   const next = cur === "dark" ? "light" : "dark";
   root.setAttribute("data-theme", next);
   localStorage.setItem("theme", next);
-  themeToggle.innerHTML = next === "dark"
-    ? '<i class="fas fa-sun"></i>'
-    : '<i class="fas fa-moon"></i>';
+  themeToggle.innerHTML =
+    next === "dark"
+      ? '<i class="fas fa-sun"></i>'
+      : '<i class="fas fa-moon"></i>';
 };
 
-/* ================== AI CHAT ================== */
+/* ================== CHAT UI ================== */
 const openChat = document.getElementById("openChat");
 const closeChat = document.getElementById("closeChat");
 const chat = document.getElementById("chat");
@@ -29,9 +32,9 @@ openChat.onclick = () => {
   chat.style.display = "flex";
   setTimeout(() => input.focus(), 100);
 };
-closeChat.onclick = () => chat.style.display = "none";
+closeChat.onclick = () => (chat.style.display = "none");
 
-function addMessage(text, type){
+function addMessage(text, type) {
   const div = document.createElement("div");
   div.className = `ai-msg ${type}`;
   div.innerText = text;
@@ -39,69 +42,82 @@ function addMessage(text, type){
   messages.scrollTop = messages.scrollHeight;
 }
 
-/* ================== AI IN BROWSER (FIXED) ================== */
+/* ================== AI DEMO LOGIC ================== */
 
-let generator;
-let aiReady = false;
-
-async function initAI() {
-  addMessage("🤖 AI sedang dimuat...", "bot");
-
-  try {
-    generator = await window.transformers.pipeline(
-      "text-generation",
-      "Xenova/gpt2"
-    );
-
-    aiReady = true;
-    messages.lastChild.remove();
-    addMessage("✅ AI siap! Silakan tanya apa saja.", "bot");
-
-  } catch (err) {
-    messages.lastChild.remove();
-    addMessage("⚠️ AI gagal dimuat", "bot");
-    console.error("AI INIT ERROR:", err);
+const responses = [
+  {
+    keywords: ["halo", "hai", "hi"],
+    reply: "Halo 👋 Senang bertemu denganmu! Ada yang ingin kamu tanyakan?"
+  },
+  {
+    keywords: ["siapa", "kamu"],
+    reply:
+      "Aku adalah AI Assistant demo di website Haudil 'Ulum 🤖. Aku dibuat untuk membantu pengunjung mengenal Haudil."
+  },
+  {
+    keywords: ["haudil", "ulum"],
+    reply:
+      "Haudil 'Ulum adalah mahasiswa Electrical Engineering dengan minat di teknologi, IoT, dan pengembangan web."
+  },
+  {
+    keywords: ["skill", "keahlian"],
+    reply:
+      "Keahlian Haudil meliputi: IoT, embedded system, web development, dan project berbasis teknologi."
+  },
+  {
+    keywords: ["linkedin"],
+    reply:
+      "Kamu bisa cek LinkedIn Haudil di sini: https://linkedin.com/in/haudilulum"
+  },
+  {
+    keywords: ["github"],
+    reply:
+      "Repo dan project Haudil ada di GitHub: https://github.com/haudilulum"
+  },
+  {
+    keywords: ["instagram", "ig"],
+    reply:
+      "Instagram Haudil: https://instagram.com/hdlulm"
+  },
+  {
+    keywords: ["portfolio", "website"],
+    reply:
+      "Portfolio Haudil bisa kamu lihat di https://haudilulum.my.id"
   }
+];
+
+function getDemoReply(text) {
+  const lower = text.toLowerCase();
+  for (const r of responses) {
+    if (r.keywords.some(k => lower.includes(k))) {
+      return r.reply;
+    }
+  }
+  return "🤔 Aku belum mengerti pertanyaan itu, tapi kamu bisa cek profil Haudil di https://haudilulum.my.id.";
 }
 
-// Panggil SEKALI
-initAI();
-
-async function sendMessage(){
+function sendMessage() {
   const text = input.value.trim();
   if (!text) return;
 
   addMessage(text, "user");
   input.value = "";
 
-  if (!aiReady) {
-    addMessage("⏳ AI masih loading, tunggu sebentar...", "bot");
-    return;
-  }
-
   const botMsg = document.createElement("div");
   botMsg.className = "ai-msg bot";
-  botMsg.innerText = "✍️ AI sedang berpikir...";
+  botMsg.innerText = "✍️ Mengetik...";
   messages.appendChild(botMsg);
   messages.scrollTop = messages.scrollHeight;
 
-  try {
-    const output = await generator(text, {
-      max_new_tokens: 50,
-      temperature: 0.7,
-      do_sample: true
-    });
-
-    botMsg.innerText =
-      output?.[0]?.generated_text || "⚠️ AI tidak bisa menjawab";
-
-  } catch (err) {
-    botMsg.innerText = "⚠️ Terjadi error di AI";
-    console.error(err);
-  }
+  setTimeout(() => {
+    botMsg.innerText = getDemoReply(text);
+  }, 600);
 }
 
 sendBtn.onclick = sendMessage;
 input.addEventListener("keydown", e => {
-  if(e.key==="Enter") sendMessage();
+  if (e.key === "Enter") sendMessage();
 });
+
+/* ================== GREETING ================== */
+addMessage("Halo 👋 Ada yang bisa saya bantu?", "bot");
