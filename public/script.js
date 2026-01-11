@@ -48,7 +48,7 @@ async function sendMessage(){
   addMessage("⏳ AI sedang mengetik...","bot");
 
   try{
-    const r = await fetch("/api/chat",{
+    const r = await fetch("ai.haudil-ulum.workers.dev",{
       method:"POST",
       headers:{ "Content-Type":"application/json" },
       body:JSON.stringify({ message:text })
