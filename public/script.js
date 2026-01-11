@@ -49,7 +49,7 @@ async function initAI() {
 
   generator = await window.transformers.pipeline(
     "text-generation",
-    "Xenova/distilgpt2"
+    "Xenova/bert-base-uncased"
   );
 
   aiReady = true;
