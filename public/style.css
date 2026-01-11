@@ -1,0 +1,142 @@
+/* ================== VARIABLES ================== */
+:root{
+  --bg-main:#0b0f14;
+  --bg-card:rgba(20,25,30,.85);
+  --text-main:#e5e7eb;
+  --text-muted:#9aa4b2;
+  --red:#ff2b2b;
+  --input-bg:#ffffff;
+  --input-text:#000000;
+}
+[data-theme="light"]{
+  --bg-main:#f4f6f9;
+  --bg-card:#ffffff;
+  --text-main:#0b0f14;
+  --text-muted:#5b6573;
+  --red:#e60000;
+  --input-bg:#ffffff;
+  --input-text:#000000;
+}
+
+/* ================== RESET ================== */
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:"Segoe UI",Arial,sans-serif;
+  color:var(--text-main);
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:var(--bg-main);
+}
+
+/* ================== BACKGROUND ================== */
+.bg{
+  position:fixed; inset:0;
+  background:
+    radial-gradient(800px 400px at 50% 20%, rgba(255,43,43,.08), transparent 60%),
+    linear-gradient(180deg, var(--bg-main), #0e141b);
+  z-index:-1;
+}
+
+/* ================== THEME TOGGLE ================== */
+.theme-toggle{
+  position:fixed; top:20px; right:20px;
+  width:44px; height:44px; border-radius:50%;
+  border:none; cursor:pointer;
+  background:var(--red); color:#fff;
+  font-size:18px; z-index:10000;
+  box-shadow:0 0 15px rgba(255,43,43,.6);
+}
+
+/* ================== HUB CARD ================== */
+.hub-card{
+  width:360px;
+  background:var(--bg-card);
+  backdrop-filter:blur(12px);
+  border-radius:28px;
+  padding:36px 28px 34px;
+  text-align:center;
+  box-shadow:0 30px 80px rgba(0,0,0,.6);
+}
+
+/* AVATAR */
+.avatar{
+  width:120px; height:120px; border-radius:50%;
+  border:3px solid var(--red);
+  box-shadow:0 0 20px rgba(255,43,43,.8),
+             0 0 50px rgba(255,43,43,.35);
+}
+
+/* NAME & BIO */
+.hub-card h1{
+  margin:18px 0 6px;
+  color:var(--red);
+  font-size:26px;
+}
+.bio{ margin:0; color:var(--text-muted); font-size:14px; }
+
+/* SOCIAL GRID */
+.socials{
+  margin-top:28px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px;
+  justify-items:center;
+}
+.icon{
+  width:64px; height:64px; border-radius:50%;
+  border:2px solid var(--red);
+  color:var(--red);
+  display:flex; align-items:center; justify-content:center;
+  font-size:22px; text-decoration:none;
+  transition:.25s ease;
+}
+.icon:hover{
+  background:var(--red);
+  color:#0b0f14;
+  box-shadow:0 0 22px rgba(255,43,43,.8);
+  transform:translateY(-2px);
+}
+.icon.dashed{ border-style:dashed }
+
+/* ================== AI FLOAT ================== */
+.ai-btn{
+  position:fixed; right:22px; bottom:22px;
+  width:56px; height:56px; border-radius:50%;
+  border:none; background:var(--red); color:#fff;
+  font-size:22px; cursor:pointer;
+  box-shadow:0 0 22px rgba(255,43,43,.8);
+  z-index:9998;
+}
+.ai-chat{
+  position:fixed; right:22px; bottom:90px;
+  width:320px; height:420px;
+  background:var(--bg-card);
+  border-radius:16px;
+  display:none; flex-direction:column;
+  z-index:9999;
+  box-shadow:0 25px 60px rgba(0,0,0,.7);
+}
+.ai-header{
+  background:var(--red); color:#fff;
+  padding:12px 14px;
+  display:flex; justify-content:space-between; align-items:center;
+}
+.ai-header button{background:none;border:none;color:#fff;cursor:pointer}
+.ai-messages{flex:1;padding:12px;overflow-y:auto;font-size:14px}
+.ai-msg{max-width:85%;margin-bottom:10px;padding:10px 12px;border-radius:12px}
+.ai-msg.bot{background:rgba(255,43,43,.15);color:var(--red)}
+.ai-msg.user{background:var(--red);color:#0b0f14;margin-left:auto}
+
+/* INPUT – PASTI BISA NGETIK */
+.ai-input{display:flex;border-top:1px solid #2a2f36}
+.ai-input input{
+  flex:1;padding:10px;border:none;outline:none;
+  background:var(--input-bg);color:var(--input-text);
+  pointer-events:auto;user-select:text;
+}
+.ai-input button{
+  padding:0 14px;border:none;background:var(--red);color:#fff;cursor:pointer;
+}

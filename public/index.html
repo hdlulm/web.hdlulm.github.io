@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Social Media Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- THEME TOGGLE -->
+<button id="themeToggle" class="theme-toggle">
+  <i class="fas fa-sun"></i>
+</button>
+
+<!-- BACKGROUND -->
+<div class="bg"></div>
+
+<!-- HUB CARD -->
+<main class="hub-card">
+  <img src="home.png" alt="Avatar" class="avatar">
+
+  <h1>Haudil 'Ulum</h1>
+  <p class="bio">Electrical Engineering • Student</p>
+
+  <div class="socials">
+    <a href="https://linkedin.com/in/haudilulum" target="_blank" class="icon"><i class="fab fa-linkedin-in"></i></a>
+    <a href="https://instagram.com/hdlulm" target="_blank" class="icon"><i class="fab fa-instagram"></i></a>
+    <a href="https://haudilulum.my.id" target="_blank" class="icon dashed"><i class="fas fa-globe"></i></a>
+    <a href="https://facebook.com/hdlulm" target="_blank" class="icon"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://discord.gg/hdlulm" target="_blank" class="icon"><i class="fab fa-discord"></i></a>
+    <a href="https://github.com/haudilulum" target="_blank" class="icon"><i class="fab fa-github"></i></a>
+  </div>
+</main>
+
+<!-- AI FLOATING -->
+<button id="openChat" class="ai-btn"><i class="fas fa-robot"></i></button>
+
+<div id="chat" class="ai-chat">
+  <div class="ai-header">
+    <span>AI Assistant</span>
+    <button id="closeChat">✕</button>
+  </div>
+
+  <div id="messages" class="ai-messages">
+    <div class="ai-msg bot">Halo 👋 Ada yang bisa saya bantu?</div>
+  </div>
+
+  <div class="ai-input">
+    <input id="input" type="text" placeholder="Tulis pesan..." autocomplete="off">
+    <button id="send"><i class="fas fa-paper-plane"></i></button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
